@@ -28,9 +28,20 @@ La salida queda en `site/dist/` (no se versiona).
 
 Conecta el repo a GitHub y usa la rama principal. El formulario de contacto requiere endpoint aparte (ver `docs/SPEC.md`).
 
-## GitHub
+## Subir el repo a GitHub (primera vez)
 
-Tras clonar en otra máquina:
+1. Crea un repositorio **vacío** en GitHub (sin README).
+2. En la raíz de este proyecto:
+
+```bash
+cd /ruta/a/webtest
+git remote add origin https://github.com/TU_USUARIO/TU_REPO.git
+git push -u origin main
+```
+
+(Si tu `git` por defecto da error al hacer `commit`, prueba `/usr/local/bin/git`.)
+
+## Clonar en otra máquina
 
 ```bash
 git clone <url-del-repo>
