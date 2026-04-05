@@ -1,0 +1,57 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const proyectos = (await getCollection('proyectos')).sort((a, b) => (b.data.year ?? 0) - (a.data.year ?? 0));
+---
+
+<BaseLayout
+  title="Proyectos de interiorismo · BATTE Interioristas Barcelona"
+  description="Selección de proyectos de interiorismo realizados por BATTE Interioristas en Barcelona, Maresme, Girona y La Cerdanya: viviendas, comercios y oficinas con un diseño cuidado y funcional."
+>
+  <div class="mx-auto max-w-6xl px-6 py-16">
+    <h1 class="text-3xl font-medium tracking-tight text-stone-900">Proyectos</h1>
+    <p class="mt-4 max-w-2xl leading-relaxed text-stone-600">
+      Una selección de proyectos de interiorismo, reforma y decoración desarrollados por BATTE Interioristas.
+    </p>
+    <p class="mt-2 max-w-2xl text-stone-600">
+      Viviendas, oficinas y espacios comerciales en Barcelona y otros entornos próximos.
+    </p>
+
+    <ul class="mt-12 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        proyectos.map((p) => (
+          <li>
+            <a href={`/proyectos/${p.id}/`} class="group block">
+              <div class="aspect-[4/3] overflow-hidden bg-stone-200">
+                <img
+                  src={p.data.cover}
+                  alt={p.data.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  width="800"
+                  height="600"
+                  loading="lazy"
+                />
+              </div>
+              <h2 class="mt-4 text-lg font-medium text-stone-900 group-hover:underline">{p.data.title}</h2>
+              <p class="mt-1 text-sm text-stone-500">
+                {p.data.location}
+                {p.data.year ? ` · ${p.data.year}` : ''}
+                {p.data.typology ? ` · ${p.data.typology}` : ''}
+              </p>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-16 text-center">
+      <a
+        href="/contacto"
+        class="inline-block border border-stone-900 bg-stone-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-stone-800"
+      >
+        Hablemos de tu proyecto
+      </a>
+    </p>
+  </div>
+</BaseLayout>

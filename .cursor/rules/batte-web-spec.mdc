@@ -1,0 +1,12 @@
+---
+description: Sitio Batte Interioristas — alinear implementación con docs/ del repo
+alwaysApply: true
+---
+
+# Spec del proyecto
+
+- Antes de añadir páginas, rutas, dependencias o integraciones (formulario, i18n), comprobar que encajan con `docs/SPEC.md` y `docs/MAPA_SITIO.md`.
+- Contenido y copy: `docs/CONTENIDO_PAGINAS.md`. Marca, color y tipografía: `docs/MARCA_Y_DISENO.md`. Metas y legales: `docs/SEO_LEGAL.md`.
+- **Portfolio** (`/proyectos`, fichas): prioridad alta de UX y rendimiento; galería en ficha con **lightbox** (teclado, foco, `alt`). Ver `docs/SPEC.md` (*Prioridad web: portfolio* y criterios *Portfolio / proyectos*).
+- **v1:** UI y contenido en **español**; catalán e inglés quedan fuera del alcance inicial salvo actualización explícita del spec.
+- Stack acordado: **Astro** + **Tailwind**; hosting orientado a **DigitalOcean**. No sustituir el stack sin reflejarlo en `docs/SPEC.md`.

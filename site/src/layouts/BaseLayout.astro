@@ -1,0 +1,85 @@
+---
+import '../styles/global.css';
+import SocialLinks from '../components/SocialLinks.astro';
+import { logo } from '../site';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const fullTitle = title.includes('BATTE') ? title : `${title} · BATTE Interioristas`;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{fullTitle}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body class="min-h-dvh bg-stone-100 text-stone-900 antialiased">
+    <a
+      href="#contenido"
+      class="focus:bg-stone-900 focus:text-white focus:outline-none sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:px-3 focus:py-2"
+      >Ir al contenido</a
+    >
+    <header class="border-b border-stone-200 bg-stone-200/80 backdrop-blur-sm">
+      <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-6 px-6 py-4 md:py-5">
+        <a href="/" class="inline-flex shrink-0 items-center focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2">
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            class="h-9 w-auto md:h-10"
+            decoding="async"
+          />
+        </a>
+        <div class="flex flex-1 flex-wrap items-center justify-end gap-x-8 gap-y-3">
+          <nav aria-label="Principal" class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-stone-800">
+            <a href="/" class="hover:text-stone-950 hover:underline">Inicio</a>
+            <a href="/servicios" class="hover:text-stone-950 hover:underline">Servicios</a>
+            <a href="/proyectos" class="hover:text-stone-950 hover:underline">Proyectos</a>
+            <a href="/prensa" class="hover:text-stone-950 hover:underline">Prensa</a>
+            <a href="/sobre-nosotros" class="hover:text-stone-950 hover:underline">Estudio</a>
+            <a href="/contacto" class="hover:text-stone-950 hover:underline">Contacto</a>
+          </nav>
+          <SocialLinks class="border-stone-300 md:border-l md:pl-6" />
+        </div>
+      </div>
+    </header>
+    <main id="contenido">
+      <slot />
+    </main>
+    <footer class="mt-20 border-t border-stone-200 bg-white">
+      <div class="mx-auto max-w-6xl px-6 py-12 text-sm text-stone-600">
+        <a href="/" class="inline-block focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2">
+          <img
+            src={logo.src}
+            alt={logo.alt}
+            width={logo.width}
+            height={logo.height}
+            class="h-8 w-auto opacity-95 md:h-9"
+            decoding="async"
+          />
+        </a>
+        <address class="mt-4 not-italic leading-relaxed">
+          Ramón Miquel i Planas, 17<br />
+          08034 Barcelona<br />
+          <a href="tel:+34932098112" class="hover:text-stone-900">+34 932 098 112</a><br />
+          <a href="mailto:info@batteinterioristas.com" class="hover:text-stone-900">info@batteinterioristas.com</a>
+        </address>
+        <div class="mt-6">
+          <p class="text-xs font-medium uppercase tracking-wide text-stone-500">Redes</p>
+          <SocialLinks class="mt-2" />
+        </div>
+        <p class="mt-6 text-xs text-stone-500">Especificación del sitio: carpeta <code class="rounded bg-stone-100 px-1">docs/</code> en el repositorio.</p>
+      </div>
+    </footer>
+  </body>
+</html>

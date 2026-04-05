@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SocialLinks from '../components/SocialLinks.astro';
+---
+
+<BaseLayout
+  title="Contacto · BATTE Interioristas Barcelona"
+  description="Contacta con BATTE Interioristas en Barcelona para tu proyecto de interiorismo o reforma integral. Pide información o una primera reunión para valorar tu espacio."
+>
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-medium tracking-tight text-stone-900">Contacto</h1>
+    <div class="mt-8 grid gap-12 md:grid-cols-2">
+      <div>
+        <address class="not-italic text-stone-600 leading-relaxed">
+          <p class="font-medium text-stone-900">BATTE Interioristas</p>
+          <p class="mt-3">
+            Ramón Miquel i Planas, 17<br />
+            08034 Barcelona
+          </p>
+          <p class="mt-3">
+            <a href="tel:+34932098112" class="hover:text-stone-900">+34 932 098 112</a>
+          </p>
+          <p class="mt-3">
+            <a href="mailto:info@batteinterioristas.com" class="hover:text-stone-900">info@batteinterioristas.com</a>
+          </p>
+        </address>
+        <div class="mt-6">
+          <h2 class="text-sm font-medium text-stone-900">Redes sociales</h2>
+          <SocialLinks class="mt-3" />
+        </div>
+      </div>
+      <div>
+        <p class="text-sm text-stone-600">
+          El envío del formulario se conectará con Resend vía endpoint de servidor (ver <code class="text-xs">docs/SPEC.md</code>). De momento es un borrador de campos.
+        </p>
+        <form class="mt-6 space-y-4" method="post" action="#" aria-describedby="form-nota">
+          <p id="form-nota" class="sr-only">Formulario pendiente de integración con backend.</p>
+          <div>
+            <label for="nombre" class="block text-sm font-medium text-stone-800">Nombre</label>
+            <input
+              id="nombre"
+              name="nombre"
+              type="text"
+              required
+              autocomplete="name"
+              class="mt-1 w-full border border-stone-300 bg-white px-3 py-2 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-stone-800">Email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              class="mt-1 w-full border border-stone-300 bg-white px-3 py-2 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
+            />
+          </div>
+          <div>
+            <label for="telefono" class="block text-sm font-medium text-stone-800">Teléfono (opcional)</label>
+            <input
+              id="telefono"
+              name="telefono"
+              type="tel"
+              autocomplete="tel"
+              class="mt-1 w-full border border-stone-300 bg-white px-3 py-2 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
+            />
+          </div>
+          <div>
+            <label for="tipo" class="block text-sm font-medium text-stone-800">Tipo de proyecto</label>
+            <select
+              id="tipo"
+              name="tipo"
+              class="mt-1 w-full border border-stone-300 bg-white px-3 py-2 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
+            >
+              <option value="">Seleccionar…</option>
+              <option value="residencial">Residencial</option>
+              <option value="comercial">Comercial / oficinas</option>
+              <option value="otro">Otro</option>
+            </select>
+          </div>
+          <div>
+            <label for="mensaje" class="block text-sm font-medium text-stone-800">Mensaje</label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              rows="5"
+              required
+              class="mt-1 w-full border border-stone-300 bg-white px-3 py-2 text-stone-900 focus:border-stone-900 focus:outline-none focus:ring-1 focus:ring-stone-900"
+            ></textarea>
+          </div>
+          <div class="flex items-start gap-2">
+            <input id="privacidad" name="privacidad" type="checkbox" required class="mt-1 border-stone-300" />
+            <label for="privacidad" class="text-sm text-stone-600"> Acepto la política de privacidad. </label>
+          </div>
+          <button
+            type="submit"
+            class="border border-stone-900 bg-stone-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-stone-800 disabled:opacity-50"
+            disabled
+          >
+            Enviar (pendiente)
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

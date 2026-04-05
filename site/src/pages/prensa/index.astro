@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const todas = await getCollection('prensa');
+const byYear = (a: (typeof todas)[0], b: (typeof todas)[0]) =>
+  b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'es');
+const online = todas.filter((e) => e.data.channel === 'online').sort(byYear);
+const offline = todas.filter((e) => e.data.channel === 'offline').sort(byYear);
+
+const rendered = await Promise.all(
+  todas.map(async (entry) => {
+    const { Content } = await render(entry);
+    return { entry, Content };
+  }),
+);
+const contentById = new Map(rendered.map((r) => [r.entry.id, r.Content]));
+---
+
+<BaseLayout
+  title="Prensa y medios · BATTE Interioristas"
+  description="Apariciones de BATTE Interioristas en medios impresos y digitales: revistas, portales y publicaciones donde el estudio ha sido mencionado o publicado."
+>
+  <div class="mx-auto max-w-3xl px-6 py-16">
+    <h1 class="text-3xl font-medium tracking-tight text-stone-900">Prensa y medios</h1>
+    <p class="mt-4 leading-relaxed text-stone-600">
+      Listado de publicaciones y menciones en medios <strong class="font-medium text-stone-800">offline</strong> (revistas, libros, prensa impresa) y
+      <strong class="font-medium text-stone-800">online</strong> (webs, blogs, portales). Para añadir entradas, crear un archivo Markdown en
+      <code class="rounded bg-stone-100 px-1 text-sm">site/src/content/prensa/</code> (ver especificación en <code class="text-sm">docs/CONTENIDO_PAGINAS.md</code>).
+    </p>
+
+    <section class="mt-14" aria-labelledby="offline-heading">
+      <h2 id="offline-heading" class="text-lg font-medium text-stone-900">Medios impresos y offline</h2>
+      <p class="mt-2 text-sm text-stone-500">{offline.length} {offline.length === 1 ? 'entrada' : 'entradas'}</p>
+      {offline.length === 0 && <p class="mt-6 text-sm text-stone-500">Aún no hay entradas en esta categoría.</p>}
+      <ul class:list={['mt-8 divide-y divide-stone-200 border-t border-stone-200', offline.length === 0 && 'hidden']}>
+        {
+          offline.map((entry) => {
+            const Content = contentById.get(entry.id)!;
+            return (
+              <li class="py-8">
+                <div class="flex flex-wrap items-baseline gap-2 gap-y-1">
+                  <span class="rounded bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-700">Offline</span>
+                  <span class="text-sm text-stone-500">
+                    {entry.data.year}
+                    {entry.data.dateNote ? ` · ${entry.data.dateNote}` : ''}
+                  </span>
+                </div>
+                <h3 class="mt-2 text-lg font-medium text-stone-900">{entry.data.title}</h3>
+                <p class="mt-1 text-stone-600">{entry.data.media}</p>
+                <div class="mt-3 text-sm leading-relaxed text-stone-600 [&_p+_p]:mt-2">
+                  <Content />
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    <section class="mt-16" aria-labelledby="online-heading">
+      <h2 id="online-heading" class="text-lg font-medium text-stone-900">Medios digitales y online</h2>
+      <p class="mt-2 text-sm text-stone-500">{online.length} {online.length === 1 ? 'entrada' : 'entradas'}</p>
+      {online.length === 0 && <p class="mt-6 text-sm text-stone-500">Aún no hay entradas en esta categoría.</p>}
+      <ul class:list={['mt-8 divide-y divide-stone-200 border-t border-stone-200', online.length === 0 && 'hidden']}>
+        {
+          online.map((entry) => {
+            const Content = contentById.get(entry.id)!;
+            return (
+              <li class="py-8">
+                <div class="flex flex-wrap items-baseline gap-2 gap-y-1">
+                  <span class="rounded bg-stone-200 px-2 py-0.5 text-xs font-medium text-stone-700">Online</span>
+                  <span class="text-sm text-stone-500">
+                    {entry.data.year}
+                    {entry.data.dateNote ? ` · ${entry.data.dateNote}` : ''}
+                  </span>
+                </div>
+                <h3 class="mt-2 text-lg font-medium text-stone-900">
+                  {entry.data.url ? (
+                    <a
+                      href={entry.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="hover:underline"
+                    >
+                      {entry.data.title}
+                      <span class="sr-only"> (se abre en una pestaña nueva)</span>
+                    </a>
+                  ) : (
+                    entry.data.title
+                  )}
+                </h3>
+                <p class="mt-1 text-stone-600">{entry.data.media}</p>
+                {entry.data.url && (
+                  <p class="mt-2">
+                    <a
+                      href={entry.data.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      class="text-sm font-medium text-stone-800 underline decoration-stone-300 underline-offset-2 hover:decoration-stone-900"
+                    >
+                      Ver enlace
+                    </a>
+                  </p>
+                )}
+                <div class="mt-3 text-sm leading-relaxed text-stone-600 [&_p+_p]:mt-2">
+                  <Content />
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    <p class="mt-14">
+      <a href="/sobre-nosotros" class="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-stone-900">← Estudio</a>
+    </p>
+  </div>
+</BaseLayout>
