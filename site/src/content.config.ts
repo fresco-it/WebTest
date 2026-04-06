@@ -4,14 +4,16 @@ import { z } from 'astro/zod';
 
 const proyectos = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/proyectos' }),
-  schema: z.object({
-    title: z.string(),
-    location: z.string(),
-    year: z.number().optional(),
-    typology: z.enum(['residencial', 'comercial', 'mixto']).optional(),
-    cover: z.string(),
-    gallery: z.array(z.string()).optional(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      location: z.string(),
+      year: z.number().optional(),
+      typology: z.enum(['residencial', 'comercial', 'mixto']).optional(),
+      /** Ruta relativa al .md, p. ej. ../../assets/projects/mi-slug/cover.jpg */
+      cover: image(),
+      gallery: z.array(image()).optional(),
+    }),
 });
 
 /** Apariciones en medios impresos o digitales (no es blog). */

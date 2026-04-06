@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { Image, getImage } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import 'photoswipe/style.css';
 
 export async function getStaticPaths() {
   const proyectos = await getCollection('proyectos');
@@ -12,7 +15,19 @@ export async function getStaticPaths() {
 
 const { proyecto } = Astro.props;
 const { Content } = await render(proyecto);
-const gallery = proyecto.data.gallery ?? [];
+const galleryRaw = proyecto.data.gallery ?? [];
+
+async function toLightboxSlide(src: ImageMetadata, alt: string) {
+  const full = await getImage({ src, width: 1920, format: 'webp' });
+  const w = full.attributes.width as number;
+  const h = full.attributes.height as number;
+  return { href: full.src, width: w, height: h, alt };
+}
+
+const coverSlide = await toLightboxSlide(proyecto.data.cover, proyecto.data.title);
+const gallerySlides = await Promise.all(
+  galleryRaw.map((img, i) => toLightboxSlide(img, `${proyecto.data.title} — imagen ${i + 2}`)),
+);
 ---
 
 <BaseLayout title={proyecto.data.title} description={`${proyecto.data.title} — ${proyecto.data.location}. Proyecto de BATTE Interioristas.`}>
@@ -31,50 +46,88 @@ const gallery = proyecto.data.gallery ?? [];
       </p>
     </header>
 
-    <div class="mt-10 aspect-[16/10] overflow-hidden bg-stone-200">
-      <img
-        src={proyecto.data.cover}
-        alt={proyecto.data.title}
-        class="h-full w-full object-cover"
-        width="1600"
-        height="1000"
-        fetchpriority="high"
-      />
-    </div>
+    <div id="project-pswp-gallery" class="mt-10 space-y-16">
+      <div class="aspect-[16/10] overflow-hidden bg-stone-200">
+        <a
+          href={coverSlide.href}
+          class="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2"
+          data-pswp-width={coverSlide.width}
+          data-pswp-height={coverSlide.height}
+        >
+          <Image
+            src={proyecto.data.cover}
+            alt={coverSlide.alt}
+            width={1200}
+            class="h-full w-full object-cover"
+            sizes="(max-width: 896px) 100vw, 896px"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </a>
+      </div>
 
-    <div class="markdown-body mt-12 space-y-4 leading-relaxed text-stone-600 [&_h2]:mt-10 [&_h2]:text-lg [&_h2]:font-medium [&_h2]:text-stone-900">
-      <Content />
-    </div>
+      <div class="markdown-body space-y-4 leading-relaxed text-stone-600 [&_h2]:mt-10 [&_h2]:text-lg [&_h2]:font-medium [&_h2]:text-stone-900">
+        <Content />
+      </div>
 
-    {
-      gallery.length > 0 && (
-        <section class="mt-16" aria-labelledby="galeria-heading">
-          <h2 id="galeria-heading" class="text-lg font-medium text-stone-900">
-            Galería
-          </h2>
-          <p class="mt-2 text-sm text-stone-500">
-            Lightbox pendiente de librería (ver <code class="rounded bg-stone-100 px-1 text-xs">docs/SPEC.md</code>). Vista en cuadrícula.
-          </p>
-          <ul class="mt-8 grid gap-4 sm:grid-cols-2">
-            {gallery.map((src, i) => (
-              <li class="overflow-hidden bg-stone-200">
-                <img
-                  src={src}
-                  alt={`${proyecto.data.title} — imagen ${i + 1}`}
-                  class="aspect-[4/3] w-full object-cover"
-                  width="800"
-                  height="600"
-                  loading="lazy"
-                />
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
+      {
+        galleryRaw.length > 0 && (
+          <section aria-labelledby="galeria-heading">
+            <h2 id="galeria-heading" class="text-lg font-medium text-stone-900">
+              Galería
+            </h2>
+            <p class="mt-2 text-sm text-stone-500">Pulsa una imagen para ampliarla (PhotoSwipe). Teclado: flechas, Escape.</p>
+            <ul class="mt-8 grid gap-4 sm:grid-cols-2">
+              {gallerySlides.map((slide, i) => (
+                <li class="overflow-hidden bg-stone-200">
+                  <a
+                    href={slide.href}
+                    class="block focus:outline-none focus-visible:ring-2 focus-visible:ring-stone-900 focus-visible:ring-offset-2"
+                    data-pswp-width={slide.width}
+                    data-pswp-height={slide.height}
+                  >
+                    <Image
+                      src={galleryRaw[i]!}
+                      alt={slide.alt}
+                      width={900}
+                      class="aspect-[4/3] w-full object-cover"
+                      sizes="(max-width: 640px) 100vw, 450px"
+                      loading="lazy"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </div>
 
     <p class="mt-16">
       <a href="/proyectos" class="font-medium text-stone-900 underline decoration-stone-300 underline-offset-4 hover:decoration-stone-900">← Volver a proyectos</a>
     </p>
   </article>
 </BaseLayout>
+
+<script>
+  import PhotoSwipeLightbox from 'photoswipe/lightbox';
+
+  function initProjectLightbox() {
+    const root = document.getElementById('project-pswp-gallery');
+    if (!root?.querySelector('a[href]')) return;
+
+    const lightbox = new PhotoSwipeLightbox({
+      gallery: '#project-pswp-gallery',
+      children: 'a[href]',
+      pswpModule: () => import('photoswipe'),
+      bgOpacity: 0.92,
+    });
+    lightbox.init();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initProjectLightbox);
+  } else {
+    initProjectLightbox();
+  }
+</script>

@@ -86,6 +86,8 @@ La web actual no tiene una página visible de servicios en la navegación princi
 
 Misma prioridad UX que el listado; ver nota bajo `/proyectos` y `docs/SPEC.md`.
 
+**Imágenes (implementación):** archivos en `site/src/assets/projects/<slug-del-proyecto>/` (p. ej. `cover.jpg`, `gallery-01.jpg`). En el `.md` de `site/src/content/proyectos/<slug>.md`, `cover` y `gallery` usan rutas **relativas al fichero Markdown**, p. ej. `../../assets/projects/duplex-sarria/cover.jpg`. Astro optimiza con `astro:assets` + **PhotoSwipe 5** en la ficha.
+
 - **Campos:**  
   título, ubicación, año, descripción, galería, antes/después (sí/no) 
 

@@ -1,43 +1,20 @@
-# Astro Starter Kit: Minimal
+# Sitio Astro — BATTE Interioristas
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Especificación y contexto del negocio: carpeta `../docs/` del monorepo.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Comandos
 
-## 🚀 Project Structure
+| Comando | Acción |
+|--------|--------|
+| `npm install` | Dependencias |
+| `npm run dev` | Desarrollo en `localhost:4321` |
+| `npm run build` | Genera `dist/` (imágenes optimizadas en `_astro/`) |
+| `npm run preview` | Vista previa de producción |
 
-Inside of your Astro project, you'll see the following folders and files:
+## Imágenes de proyectos
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- Carpeta por slug: **`src/assets/projects/<slug>/`** (portada `cover.*` + imágenes de galería).
+- Referencias en **`src/content/proyectos/<slug>.md`** con el helper `image()` (rutas relativas tipo `../../assets/projects/mi-slug/cover.jpg`).
+- Listados y fichas usan **`astro:assets`** (`<Image>`). La ficha abre la galería con **PhotoSwipe** (`photoswipe`).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Las fotos de muestra actuales pueden ser sustituidas por material propio del estudio.

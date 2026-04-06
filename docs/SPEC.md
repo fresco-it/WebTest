@@ -36,7 +36,7 @@ Las rutas `/proyectos` y `/proyectos/[slug]` son **requisitos centrales** del si
 
 - **Experiencia de uso:** transición obvia entre listado y ficha; **enfoque móvil primero**; jerarquía visual que destaque la fotografía sin perder legibilidad en títulos y metadatos (ubicación, tipología, etc.).
 - **Imágenes:** formatos y tamaños adecuados para web, **carga progresiva** (p. ej. lazy loading donde proceda), textos **`alt` descriptivos** en portadas y en galería. Las fichas usan **lightbox** para ampliar y recorrer la galería: apertura desde miniatura o imagen en contexto, cierre con tecla Escape y controles claros; navegación entre fotos **con teclado** (flechas o equivalente) y **trampa de foco** razonable dentro del modal, alineado con accesibilidad de este documento.  
-  **Librería concreta** (PhotoSwipe, GLightbox, implementación propia, etc.): **pendiente** de elegir en implementación; debe cumplir los requisitos anteriores y documentarse en el README o en `docs/` al decidir.
+  **Librería:** **PhotoSwipe 5** (`photoswipe` en `site/package.json`), integrada en la ficha de proyecto (`site/src/pages/proyectos/[slug].astro`): galería hero + miniaturas, teclado y Escape. Imágenes del portfolio en **`site/src/assets/projects/<slug>/`** referenciadas desde el frontmatter del Markdown (helper `image()` en `content.config.ts`).
 - **Gestión de contenido:** el flujo para **dar de alta o editar** un proyecto debe quedar definido y ser mantenible por el estudio con poca fricción (p. ej. **Content Collections** en Markdown/MDX u otro mecanismo documentado en el repo o en `docs/`).
 
 El detalle de bloques y copy sigue en [`CONTENIDO_PAGINAS.md`](./CONTENIDO_PAGINAS.md).
