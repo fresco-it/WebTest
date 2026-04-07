@@ -20,3 +20,4 @@ pnpm-debug.log*
 
 # Borradores locales en raíz
 Untitled
+node_modules/
