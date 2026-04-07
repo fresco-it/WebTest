@@ -5,6 +5,8 @@ import { Image, getImage } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import 'photoswipe/style.css';
 
+export const prerender = true;
+
 export async function getStaticPaths() {
   const proyectos = await getCollection('proyectos');
   return proyectos.map((p) => ({
