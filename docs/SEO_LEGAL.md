@@ -10,14 +10,14 @@ Este documento define metadatos y requisitos legales para que la nueva web sea i
 
 ## Metas por página
 
-La web actual muestra sobre todo `/`, `/estudio` y `/contacto`. La tabla siguiente asume la arquitectura nueva (`/sobre-nosotros` en lugar de `/estudio`). Adapta si las URLs finales cambian.
+La web actual muestra sobre todo `/`, `/estudio` y `/contacto`. La tabla siguiente usa `/estudio` como ruta definitiva.
 
 | Ruta | `<title>` | meta description |
 |------|-----------|------------------|
 | `/` | BATTE Interioristas · Proyectos de interiorismo en Barcelona | Estudio de interiorismo en Barcelona especializado en proyectos residenciales y comerciales. Reformas integrales, decoración de interiores y diseño a medida en Barcelona y alrededores. |
 | `/servicios` | Servicios de interiorismo · Reformas y decoración en Barcelona | Servicios de interiorismo y decoración en Barcelona: proyectos integrales, reformas de viviendas, retail y oficinas, dirección de obra y asesoramiento en materiales y mobiliario. |
 | `/proyectos` | Proyectos de interiorismo · BATTE Interioristas Barcelona | Selección de proyectos de interiorismo realizados por BATTE Interioristas en Barcelona, Maresme, Girona y La Cerdanya: viviendas, comercios y oficinas con un diseño cuidado y funcional. |
-| `/sobre-nosotros` | Estudio de interiorismo en Barcelona · BATTE | Estudio de interiorismo en Barcelona con trayectoria en reformas y diseño de interiores. Equipo especialista en crear espacios luminosos, cálidos y adaptados a cada cliente. |
+| `/estudio` | Estudio de interiorismo en Barcelona · BATTE | Estudio de interiorismo en Barcelona con trayectoria en reformas y diseño de interiores. Equipo especialista en crear espacios luminosos, cálidos y adaptados a cada cliente. |
 | `/prensa` | Prensa y medios · BATTE Interioristas | Apariciones de BATTE Interioristas en medios impresos y digitales: revistas, portales y publicaciones donde el estudio ha sido mencionado. |
 | `/contacto` | Contacto · BATTE Interioristas Barcelona | Contacta con BATTE Interioristas en Barcelona para tu proyecto de interiorismo o reforma integral. Pide información o una primera reunión para valorar tu espacio. |
 

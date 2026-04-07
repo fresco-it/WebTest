@@ -105,7 +105,7 @@ Misma prioridad UX que el listado; ver nota bajo `/proyectos` y `docs/SPEC.md`.
 
 ***
 
-## `/sobre-nosotros`
+## `/estudio`
 
 Corresponde a la actual página `/estudio/`. 
 
@@ -157,7 +157,7 @@ Listado de **apariciones y publicaciones** donde BATTE Interioristas aparece o e
 
 - **Cuerpo Markdown:** texto opcional (notas, contexto).  
 
-- **Navegación:** enlace en cabecera («Prensa») y desde `/sobre-nosotros`.
+- **Navegación:** enlace en cabecera («Prensa») y desde `/estudio`.
 
 ***
 
