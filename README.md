@@ -26,7 +26,13 @@ La salida queda en `site/dist/` (no se versiona).
 - **Build command:** `npm ci && npm run build`
 - **Output directory:** `dist`
 
-Conecta el repo a GitHub y usa la rama principal. El formulario de contacto requiere endpoint aparte (ver `docs/SPEC.md`).
+Conecta el repo a GitHub y usa la rama principal. El formulario ya usa endpoint servidor (`site/src/pages/api/contact.ts`) con Resend.
+
+Variables de entorno necesarias en App Platform:
+
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `CONTACT_TO_EMAIL` (opcional; por defecto `info@batteinterioristas.com`)
 
 ## Subir el repo a GitHub (primera vez)
 

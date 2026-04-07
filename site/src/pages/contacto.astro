@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SocialLinks from '../components/SocialLinks.astro';
+
+const status = Astro.url.searchParams.get('status');
 ---
 
 <BaseLayout
@@ -30,11 +32,21 @@ import SocialLinks from '../components/SocialLinks.astro';
         </div>
       </div>
       <div>
-        <p class="text-sm text-stone-600">
-          El envío del formulario se conectará con Resend vía endpoint de servidor (ver <code class="text-xs">docs/SPEC.md</code>). De momento es un borrador de campos.
-        </p>
-        <form class="mt-6 space-y-4" method="post" action="#" aria-describedby="form-nota">
-          <p id="form-nota" class="sr-only">Formulario pendiente de integración con backend.</p>
+        {status === 'ok' && (
+          <p class="rounded border border-emerald-300 bg-emerald-50 px-3 py-2 text-sm text-emerald-800">
+            Gracias, hemos recibido tu mensaje y te responderemos pronto.
+          </p>
+        )}
+        {status === 'error' && (
+          <p class="rounded border border-red-300 bg-red-50 px-3 py-2 text-sm text-red-800">
+            No se ha podido enviar el formulario. Revisa los campos e inténtalo de nuevo.
+          </p>
+        )}
+        <form class="mt-6 space-y-4" method="post" action="/api/contact">
+          <div class="hidden" aria-hidden="true">
+            <label for="website">Website</label>
+            <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
           <div>
             <label for="nombre" class="block text-sm font-medium text-stone-800">Nombre</label>
             <input
@@ -97,9 +109,8 @@ import SocialLinks from '../components/SocialLinks.astro';
           <button
             type="submit"
             class="border border-stone-900 bg-stone-900 px-6 py-2.5 text-sm font-medium text-white hover:bg-stone-800 disabled:opacity-50"
-            disabled
           >
-            Enviar (pendiente)
+            Enviar
           </button>
         </form>
       </div>

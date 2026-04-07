@@ -18,3 +18,14 @@ Especificación y contexto del negocio: carpeta `../docs/` del monorepo.
 - Listados y fichas usan **`astro:assets`** (`<Image>`). La ficha abre la galería con **PhotoSwipe** (`photoswipe`).
 
 Las fotos de muestra actuales pueden ser sustituidas por material propio del estudio.
+
+## Formulario de contacto (Resend)
+
+El formulario de `src/pages/contacto.astro` envía un `POST` a `src/pages/api/contact.ts`.
+
+1. Copia `.env.example` a `.env`.
+2. Configura:
+   - `RESEND_API_KEY`
+   - `RESEND_FROM_EMAIL` (dominio verificado en Resend)
+   - `CONTACT_TO_EMAIL` (destino final; opcional, por defecto `info@batteinterioristas.com`)
+3. En desarrollo/producción, usa salida de servidor (`astro.config.mjs` ya está en `output: 'server'` con adaptador Node).
